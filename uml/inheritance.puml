@@ -1,0 +1,63 @@
+@startuml
+title Employee Compensation - Inheritance
+
+abstract class Employee {
+  - name : String
+  - area : String
+  + Employee(name : String, area : String)
+  {abstract} + computePay() : double
+}
+
+class HourlyEmployee {
+  - hoursWorked : double
+  - hourlyRate : double
+  + computePay() : double
+}
+
+class SalariedEmployee {
+  - monthlySalary : double
+  + computePay() : double
+}
+
+class Freelancer {
+  - numberOfProjects : int
+  - ratePerProject : double
+  + computePay() : double
+}
+
+class HourlyEmployeeWithCommission {
+  - sales : double
+  - commissionRate : double
+  + computeCommission() : double
+  + computePay() : double
+}
+
+class SalariedEmployeeWithCommission {
+  - sales : double
+  - commissionRate : double
+  + computeCommission() : double
+  + computePay() : double
+}
+
+class FreelancerWithCommission {
+  - sales : double
+  - commissionRate : double
+  + computeCommission() : double
+  + computePay() : double
+}
+
+Employee <|-- HourlyEmployee
+Employee <|-- SalariedEmployee
+Employee <|-- Freelancer
+
+HourlyEmployee <|-- HourlyEmployeeWithCommission
+SalariedEmployee <|-- SalariedEmployeeWithCommission
+Freelancer <|-- FreelancerWithCommission
+
+note bottom of SalariedEmployeeWithCommission
+  Commission attributes and computeCommission()
+  are duplicated in all three WithCommission classes.
+end note
+
+note "Getters/setters omitted for readability." as N1
+@enduml

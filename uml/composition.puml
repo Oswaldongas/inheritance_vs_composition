@@ -1,0 +1,55 @@
+@startuml
+title Employee Compensation - Composition
+
+class Employee {
+  - name : String
+  - area : String
+  - contract : Contract
+  - commission : Commission
+  + Employee(name : String, area : String, contract : Contract)
+  + Employee(name : String, area : String, contract : Contract, commission : Commission)
+  + computePay() : double
+}
+
+interface Contract {
+  + computePay() : double
+}
+
+class HourlyContract {
+  - hoursWorked : double
+  - hourlyRate : double
+  + computePay() : double
+}
+
+class SalariedContract {
+  - monthlySalary : double
+  + computePay() : double
+}
+
+class FreelancerContract {
+  - numberOfProjects : int
+  - ratePerProject : double
+  + computePay() : double
+}
+
+interface Commission {
+  + computeCommission() : double
+}
+
+class ContractCommission {
+  - sales : double
+  - commissionRate : double
+  + computeCommission() : double
+}
+
+Employee "1" --> "1" Contract : has
+Employee "1" --> "0..1" Commission : may have
+
+Contract <|.. HourlyContract
+Contract <|.. SalariedContract
+Contract <|.. FreelancerContract
+
+Commission <|.. ContractCommission
+
+note "Getters/setters omitted for readability." as N1
+@enduml
